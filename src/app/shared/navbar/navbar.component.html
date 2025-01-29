@@ -1,4 +1,4 @@
-<nav class="bg-gray-400">
+<nav class="bg-gray-700">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <!-- Logo -->
@@ -13,54 +13,13 @@
         <!-- Desktop Menu -->
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-            <a href="#" class="rounded-md bg-gray-700 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</a>
+            <a href="#" class="rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</a>
             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white">Transactions</a>
             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white">Reports</a>
             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white">Settings</a>
           </div>
         </div>
-  
-        <!-- Hamburger Menu Button -->
-        <div class="sm:hidden">
-          <button
-            class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-            aria-expanded="false"
-            (click)="toggleMobileMenu()"
-          >
-            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
-        </div>
       </div>
-    </div>
-  
-    <!-- Mobile Menu with Tailwind CSS Transition -->
-    <div
-      class="sm:hidden fixed inset-0 bg-gray-400 bg-opacity-90 flex flex-col items-center justify-center z-50 transform transition-transform duration-300 ease-in-out"
-      [ngClass]="{
-        'translate-x-0': isMobileMenuOpen,
-        'translate-x-full': !isMobileMenuOpen
-      }"
-      id="mobile-menu"
-    >
-      <!-- Close Button -->
-      <button
-        class="absolute top-4 right-4 p-2 rounded-full bg-gray-700 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800"
-        aria-label="Close menu"
-        (click)="toggleMobileMenu()"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <!-- Menu Items -->
-      <nav class="space-y-4 text-center">
-        <a href="#" class="block text-lg font-medium text-white px-6 py-3 rounded-lg bg-gray-700 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-white" aria-current="page">Dashboard</a>
-        <a href="#" class="block text-lg font-medium text-white px-6 py-3 rounded-lg hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">Transactions</a>
-        <a href="#" class="block text-lg font-medium text-white px-6 py-3 rounded-lg hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">Reports</a>
-        <a href="#" class="block text-lg font-medium text-white px-6 py-3 rounded-lg hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">Settings</a>
-      </nav>
     </div>
   </nav>
   

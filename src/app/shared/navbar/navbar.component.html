@@ -9,12 +9,14 @@
             <!-- Desktop Menu -->
             <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
-                    <a *ngFor="let link of links" [routerLink]="link.path" routerLinkActive="bg-gray-800"
+                    @for (link of links; track $index) {
+                    <a [routerLink]="link.path" routerLinkActive="bg-gray-800"
                         [routerLinkActiveOptions]="{ exact: true }"
                         class="rounded-md px-3 py-2 text-sm font-medium text-white"
                         [ngClass]="!isActive(link.path) ? 'hover:bg-gray-600 hover:text-white' : ''">
                         {{ link.label }}
                     </a>
+                    }
                 </div>
             </div>
         </div>

@@ -1,0 +1,32 @@
+<div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-between mb-4">
+    <!-- Left Section: Icon + Details -->
+    <div class="flex items-center gap-4">
+        <!-- Icon Badge -->
+        <div class="h-10 w-10 flex items-center justify-center rounded-full font-bold"
+        [ngClass]="transaction().type === 'Income' ? 'bg-green-100' : 'bg-red-100'">
+            <i class="fa-solid"
+                [ngClass]="transaction().type === 'Income' ? 'fa-plus text-green-500' : 'fa-minus text-red-500'"></i>
+        </div>
+
+        <!-- Transaction Details -->
+        <div>
+            <h3 class="font-medium text-lg">{{ transaction().category }}</h3>
+            <p class="text-gray-500 text-sm">
+                {{ transaction().date | date: 'mediumDate' }}
+            </p>
+            @if (transaction().description) {
+            <p class="text-gray-400 text-xs mt-1">
+                {{ transaction().description }}
+            </p>
+            }
+        </div>
+    </div>
+
+    <!-- Right Section: Amount -->
+    <div>
+        <p [class.text-green-500]="transaction().type === 'Income'"
+            [class.text-red-500]="transaction().type === 'Expense'" class="text-lg font-bold">
+            {{ transaction().amount | currency }}
+        </p>
+    </div>
+</div>

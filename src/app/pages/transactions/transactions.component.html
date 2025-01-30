@@ -1,1 +1,6 @@
 <app-heading-title title="Transactions" />
+<div class="container mx-auto px-4">
+    @for (transaction of transactions; track transaction.id) {
+    <app-transaction-card [transaction]="transaction"></app-transaction-card>
+    }
+</div>

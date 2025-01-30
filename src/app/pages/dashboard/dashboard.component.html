@@ -1,15 +1,11 @@
 <app-heading-title title="Dashboard" />
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 px-6">
-    <div class="p-4 bg-green-100 rounded-xl shadow-md">
-        <h2 class="text-xl font-semibold">Income</h2>
-        <p class="text-2xl font-bold text-green-600">$2,500</p>
+    @for (card of summaryCards; track $index) {
+    <div [ngClass]="card.bgColor" class="p-4 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold">{{ card.title }}</h2>
+        <p [ngClass]="card.textColor" class="text-2xl font-bold">
+            {{ card.amount | currency }}
+        </p>
     </div>
-    <div class="p-4 bg-red-100 rounded-xl shadow-md">
-        <h2 class="text-xl font-semibold">Expenses</h2>
-        <p class="text-2xl font-bold text-red-600">$1,200</p>
-    </div>
-    <div class="p-4 bg-blue-100 rounded-xl shadow-md">
-        <h2 class="text-xl font-semibold">Balance</h2>
-        <p class="text-2xl font-bold text-blue-600">$1,300</p>
-    </div>
+    }
 </div>

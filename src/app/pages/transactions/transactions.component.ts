@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
 import { Transaction } from '../../models/transaction.model';
 import { TransactionCardComponent } from '../../shared/transaction-card/transaction-card.component';
+import { FloatingButtonComponent } from '../../shared/floating-button/floating-button.component';
 
 @Component({
   selector: 'app-transactions',
-  imports: [HeadingTitleComponent, TransactionCardComponent],
+  imports: [HeadingTitleComponent, TransactionCardComponent, FloatingButtonComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })

@@ -1,28 +1,12 @@
 <nav class="bg-gray-700 fixed bottom-0 inset-x-0 sm:hidden">
     <div class="flex justify-around items-center p-4 space-x-4">
-      <!-- Menu Item 1 -->
-      <a routerLink="/" class="flex flex-col items-center text-white hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-center">
-        <i class="fa-solid fa-gauge pb-2"></i>
-        <span class="text-xs">Dashboard</span>
-      </a>
-  
-      <!-- Menu Item 2 -->
-      <a routerLink="transactions" class="flex flex-col items-center text-white hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-center">
-        <i class="fa-solid fa-list pb-2"></i>
-        <span class="text-xs">Transactions</span>
-      </a>
-  
-      <!-- Menu Item 3 -->
-      <a routerLink="/reports" class="flex flex-col items-center text-white hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-center">
-        <i class="fas fa-file-alt w-6 h-6 pb-2"></i>
-        <span class="text-xs">Reports</span>
-      </a>
-  
-      <!-- Menu Item 4 -->
-      <a routerLink="settings" class="flex flex-col items-center text-white hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-center">
-        <i class="fa-solid fa-gear pb-2"></i>
-        <span class="text-xs">Settings</span>
-      </a>
+        @for (link of links; track $index) {
+        <a [routerLink]="link.path" routerLinkActive="bg-gray-800" [routerLinkActiveOptions]="{ exact: true }"
+            class="flex flex-col items-center text-white px-4 py-2 rounded-md text-center"
+            [ngClass]="!isActive(link.path) ? 'hover:bg-gray-700 hover:text-white' : ''">
+            <i [class]="link.icon + ' pb-2'"></i>
+            <span class="text-xs">{{ link.label }}</span>
+        </a>
+        }
     </div>
-  </nav>
-  
+</nav>

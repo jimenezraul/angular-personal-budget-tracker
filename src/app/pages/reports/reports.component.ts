@@ -40,6 +40,7 @@ export class ReportsComponent {
   // Chart options
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    aspectRatio: 2,
     plugins: {
       legend: {
         display: true,
@@ -60,6 +61,7 @@ export class ReportsComponent {
   };
 
   public pieChartType: ChartType = 'pie';
+  public barChartType: ChartType = 'bar';
 
   // Events (optional)
   public chartClicked({

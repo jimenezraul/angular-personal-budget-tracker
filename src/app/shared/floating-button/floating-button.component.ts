@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-floating-button',
@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './floating-button.component.css'
 })
 export class FloatingButtonComponent {
-  addTransaction() {
-    console.log('addTransaction')
+  @Output() isModalOpen = new EventEmitter<void>();
+
+  onModalChange() {
+    this.isModalOpen.emit()
   }
 }

@@ -4,4 +4,10 @@
     <app-transaction-card [transaction]="transaction"></app-transaction-card>
     }
 </div>
-<app-floating-button />
+<app-floating-button (isModalOpen)="onOpenModal()" />
+<app-transaction-modal
+  [isOpen]="isModalOpen"
+  [transaction]="currentTransaction"
+  (closeModal)="onOpenModal()"
+  (saveTransaction)="saveTransaction($event)"
+></app-transaction-modal>

@@ -1,23 +1,41 @@
-import { Component, ViewChild } from '@angular/core';
-import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
+import { Component, inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TransactionCategory } from '../../enum/categories.enum';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { Subscription } from 'rxjs';
+
+import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
+import { TransactionService } from '../../services/transaction.service';
+import { Summary } from '../../models/summary.model';
+import { SummaryService } from '../../services/summary.service';
+import { TransactionCategory } from '../../enum/categories.enum';
 
 @Component({
   selector: 'app-reports',
   imports: [HeadingTitleComponent, CommonModule, FormsModule, BaseChartDirective],
   templateUrl: './reports.component.html',
-  styleUrl: './reports.component.css'
+  styleUrls: ['./reports.component.css'],
 })
-export class ReportsComponent {
-  summaryCards = [
-    { title: 'Income', amount: 2500, bgColor: 'bg-green-100', textColor: 'text-green-600' },
-    { title: 'Expenses', amount: 1200, bgColor: 'bg-red-100', textColor: 'text-red-600' },
-    { title: 'Balance', amount: 1300, bgColor: 'bg-blue-100', textColor: 'text-blue-600' },
-  ];
+export class ReportsComponent implements OnInit, OnDestroy {
+  summaryCards: Summary[] = [];
+  private subscription: Subscription = Subscription.EMPTY;
+
+  transactionService = inject(TransactionService);
+  summaryService = inject(SummaryService)
+  transactions$ = this.transactionService.transactions$;
+
+  ngOnInit(): void {
+    this.subscription = this.transactions$.subscribe((transactions) => {
+      this.summaryCards = this.summaryService.calculateSummary(transactions);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   // Filters
   filters = {

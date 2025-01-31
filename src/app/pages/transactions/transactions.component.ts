@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent {
   isModalOpen = false;
   currentTransaction: Partial<Transaction> = {};
   onOpenModal() {
@@ -24,9 +24,4 @@ export class TransactionsComponent implements OnInit {
   transactionService = inject(TransactionService)
 
   transactions$ = this.transactionService.transactions$;
-
-  ngOnInit(): void {
-    this.transactionService.getTransactions()
-  }
-
 }

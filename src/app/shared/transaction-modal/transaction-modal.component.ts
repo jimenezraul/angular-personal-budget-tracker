@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Transaction } from '../../models/transaction.model';
+import { TransactionCategory } from '../../enum/categories.enum';
+import { TransactionService } from '../../services/transaction.service';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -9,14 +11,18 @@ import { Transaction } from '../../models/transaction.model';
   styleUrl: './transaction-modal.component.css'
 })
 export class TransactionModalComponent {
-  @Input() isOpen: boolean = false; // Controls visibility of modal
-  @Input() transaction: Partial<Transaction> = {}; // Transaction data for editing
-  @Output() closeModal = new EventEmitter<void>(); // Emits event to close modal
-  @Output() saveTransaction = new EventEmitter<Transaction>(); // Emits the transaction when saved
+  @Input() isOpen: boolean = false;
+  @Input() transaction: Partial<Transaction> = {};
+  @Output() closeModal = new EventEmitter<void>();
+  categories: string[] = Object.values(TransactionCategory);
+
+  tService = inject(TransactionService)
 
   onSubmit(form: NgForm) {
+    console.log(form)
     if (form.valid) {
-      this.saveTransaction.emit(this.transaction as Transaction);
+      this.tService.addTransaction(form.form.value)
+      form.reset()
       this.close(); // Close modal after saving
     }
   }

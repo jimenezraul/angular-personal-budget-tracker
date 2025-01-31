@@ -1,13 +1,10 @@
 <app-heading-title title="Transactions" />
 <div class="container mx-auto px-4">
-    @for (transaction of transactions; track transaction.id) {
+    @for (transaction of transactions$ | async; track transaction.id) {
     <app-transaction-card [transaction]="transaction"></app-transaction-card>
     }
 </div>
+
 <app-floating-button (isModalOpen)="onOpenModal()" />
-<app-transaction-modal
-  [isOpen]="isModalOpen"
-  [transaction]="currentTransaction"
-  (closeModal)="onOpenModal()"
-  (saveTransaction)="saveTransaction($event)"
-></app-transaction-modal>
+<app-transaction-modal [isOpen]="isModalOpen" [transaction]="currentTransaction"
+    (closeModal)="onOpenModal()"></app-transaction-modal>

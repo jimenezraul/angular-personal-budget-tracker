@@ -34,9 +34,14 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700">Category</label>
-                    <input type="text" class="border rounded-md p-2 w-full" [(ngModel)]="transaction.category"
-                        name="category" required />
+                    <select class="border rounded-md p-2 w-full" [(ngModel)]="transaction.category" name="category"
+                        required>
+                        @for (category of categories; track $index) {
+                        <option [value]="category">{{ category }}</option>
+                        }
+                    </select>
                 </div>
+
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700">Description</label>

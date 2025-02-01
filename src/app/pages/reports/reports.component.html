@@ -39,8 +39,7 @@
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Expenses by Category</h3>
             <!-- Insert Pie Chart Here -->
             <div id="pie-chart w-full">
-                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"
-                    (chartClick)="chartClicked($event)" (chartHover)="chartHovered($event)"></canvas>
+                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
 
             </div>
         </div>
@@ -48,8 +47,7 @@
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Income vs Expenses</h3>
             <!-- Insert Bar Chart Here -->
             <div id="bar-chart w-full">
-                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="barChartType"
-                    (chartClick)="chartClicked($event)">
+                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="barChartType">
                 </canvas>
             </div>
         </div>

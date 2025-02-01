@@ -10,6 +10,8 @@ import { TransactionService } from '../../services/transaction.service';
 import { Summary } from '../../models/summary.model';
 import { SummaryService } from '../../services/summary.service';
 import { TransactionCategory } from '../../enum/categories.enum';
+import { Transaction } from '../../models/transaction.model';
+import { Filters } from '../../models/filter.model';
 
 @Component({
   selector: 'app-reports',
@@ -28,6 +30,12 @@ export class ReportsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.transactions$.subscribe((transactions) => {
       this.summaryCards = this.summaryService.calculateSummary(transactions);
+
+      const { labels, data } = this.summaryService.calculateCategoryTotals(transactions, this.filters);
+
+      this.pieChartData.labels = labels;
+      this.pieChartData.datasets[0].data = data;
+      this.pieChartData.datasets[0].backgroundColor = this.summaryService.generateColors(labels.length);
     });
   }
 
@@ -38,7 +46,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
 
   // Filters
-  filters = {
+  filters: Filters = {
     startDate: '',
     endDate: '',
     category: '',
@@ -67,38 +75,18 @@ export class ReportsComponent implements OnInit, OnDestroy {
     },
   };
 
+
   // Chart data and labels
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Food', 'Rent', 'Utilities', 'Entertainment'],
+    labels: [],
     datasets: [
       {
-        data: [400, 300, 200, 100],
-        backgroundColor: ['#4CAF50', '#F44336', '#FF9800', '#2196F3'],
+        data: [],
+        backgroundColor: [], // You can set colors here if needed
       },
     ],
   };
 
   public pieChartType: ChartType = 'pie';
   public barChartType: ChartType = 'bar';
-
-  // Events (optional)
-  public chartClicked({
-    event,
-    active,
-  }: {
-    event?: ChartEvent;
-    active?: object[];
-  }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({
-    event,
-    active,
-  }: {
-    event?: ChartEvent;
-    active?: object[];
-  }): void {
-    console.log(event, active);
-  }
 }

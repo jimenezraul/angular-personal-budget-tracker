@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from '../models/transaction.model';
 import type { Filters } from '../models/filter.model'
+import { ChartType } from 'chart.js';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SummaryService {
+    public readonly pieChartType: ChartType = 'pie';
+    public readonly barChartType: ChartType = 'bar';
+
     calculateSummary(transactions: Transaction[]) {
         const totalIncome = transactions
             .filter((transaction) => transaction.type === 'Income')
@@ -72,8 +76,8 @@ export class SummaryService {
 
     generateColors(count: number): string[] {
         const colors = [
-          '#4CAF50', '#F44336', '#FF9800', '#2196F3', '#9C27B0', '#00BCD4', '#8BC34A', '#FFC107', '#E91E63', '#03A9F4',
+            '#4CAF50', '#F44336', '#FF9800', '#2196F3', '#9C27B0', '#00BCD4', '#8BC34A', '#FFC107', '#E91E63', '#03A9F4',
         ];
         return colors.slice(0, count);
-      }
+    }
 }

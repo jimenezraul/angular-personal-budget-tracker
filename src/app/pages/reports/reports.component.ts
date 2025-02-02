@@ -2,7 +2,7 @@ import { Component, inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { Subscription } from 'rxjs';
 
 import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
@@ -10,7 +10,6 @@ import { TransactionService } from '../../services/transaction.service';
 import { Summary } from '../../models/summary.model';
 import { SummaryService } from '../../services/summary.service';
 import { TransactionCategory } from '../../enum/categories.enum';
-import { Transaction } from '../../models/transaction.model';
 import { Filters } from '../../models/filter.model';
 
 @Component({
@@ -82,11 +81,11 @@ export class ReportsComponent implements OnInit, OnDestroy {
     datasets: [
       {
         data: [],
-        backgroundColor: [], // You can set colors here if needed
+        backgroundColor: [],
       },
     ],
   };
 
-  public pieChartType: ChartType = 'pie';
-  public barChartType: ChartType = 'bar';
+  public pieChartType = this.summaryService.pieChartType;
+  public barChartType = this.summaryService.barChartType;
 }

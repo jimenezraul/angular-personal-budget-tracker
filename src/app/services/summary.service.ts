@@ -80,4 +80,19 @@ export class SummaryService {
         ];
         return colors.slice(0, count);
     }
+
+    // Calculate Income and Expenses
+    public calculateIncomeAndExpenses(transactions: Transaction[]): [number, number, number] {
+        const income = transactions
+            .filter((t) => t.type === 'Income')
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const expenses = transactions
+            .filter((t) => t.type === 'Expense')
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const balance = income - expenses
+
+        return [income, expenses, balance];
+    }
 }

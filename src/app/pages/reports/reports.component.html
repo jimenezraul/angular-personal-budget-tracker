@@ -19,35 +19,45 @@
 
     <!-- Filters -->
     <div class="mb-6 flex flex-wrap gap-4 items-center">
+        <span class="text-gray-600 w-full">Date Range:</span>
         <label class="flex gap-4">
-            <span class="text-gray-600">Date Range:</span>
-            <input type="date" class="p-2 border rounded-md" [(ngModel)]="filters.startDate" />
-            <input type="date" class="p-2 border rounded-md" [(ngModel)]="filters.endDate" />
+            <input type="date" class="p-2 border border-gray-400 bg-gray-300 rounded-md"
+                [(ngModel)]="filters.startDate" />
+            <input type="date" class="p-2 border border-gray-400 bg-gray-300 rounded-md"
+                [(ngModel)]="filters.endDate" />
         </label>
-        <select class="p-2 border rounded-md" [(ngModel)]="filters.category">
+        <select class="p-2 border border-gray-400 bg-gray-300 rounded-md" [(ngModel)]="filters.category">
             <option value="">All Categories</option>
             <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" (click)="applyFilters()">
-            Apply
-        </button>
+        <div class="flex gap-4">
+            <button class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700" (click)="onReset()">
+                Reset
+            </button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" (click)="applyFilters()">
+                Apply
+            </button>
+        </div>
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-4 rounded-xl shadow-md">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Expenses by Category</h3>
+        <div class="bg-white p-4 rounded-xl shadow-md h-full flex flex-col">
+            <h3 class="text-lg font-semibold text-gray-800 pb-4">Expenses by Category</h3>
             <!-- Insert Pie Chart Here -->
-            <div id="pie-chart w-full">
-                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
-
+            <div class="h-full flex justify-center items-center">
+                @if (pieChartData.datasets[0].data.length > 0) {
+                <canvas baseChart [data]="pieChartData" [options]="chartOptions" [type]="pieChartType"></canvas>
+                } @else {
+                <p class="text-center">No transaction</p>
+                }
             </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Income vs Expenses</h3>
+        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col">
+            <h3 class="text-lg font-semibold text-gray-800 pb-4">Income vs Expenses</h3>
             <!-- Insert Bar Chart Here -->
-            <div id="bar-chart w-full">
-                <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="barChartType">
+            <div class="h-full flex">
+                <canvas baseChart [data]="barChartData" [options]="chartOptions" [type]="barChartType">
                 </canvas>
             </div>
         </div>

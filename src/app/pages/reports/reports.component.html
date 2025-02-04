@@ -21,14 +21,14 @@
     <div class="mb-6 flex flex-wrap gap-4 items-center">
         <span class="text-gray-600 w-full">Date Range:</span>
         <label class="flex gap-4">
-            <input type="date" class="p-2 bg-gray-200 rounded-md shadow-md"
-                [(ngModel)]="filters.startDate" />
-            <input type="date" class="p-2 bg-gray-200 rounded-md shadow-md"
-                [(ngModel)]="filters.endDate" />
+            <input type="date" class="p-2 bg-gray-200 rounded-md shadow-md" [(ngModel)]="filters.startDate" />
+            <input type="date" class="p-2 bg-gray-200 rounded-md shadow-md" [(ngModel)]="filters.endDate" />
         </label>
         <select class="p-2 bg-gray-200 rounded-md shadow-md" [(ngModel)]="filters.category">
             <option value="">All Categories</option>
-            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            @for (category of categories; track $index) {
+            <option [value]="category">{{ category }}</option>
+            }
         </select>
         <div class="flex gap-4">
             <button class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700" (click)="onReset()">

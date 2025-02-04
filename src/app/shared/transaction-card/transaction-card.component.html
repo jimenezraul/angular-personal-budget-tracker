@@ -14,11 +14,13 @@
             <p class="text-gray-500 text-sm">
                 {{ transaction().date | date: 'mediumDate' }}
             </p>
-            <ng-container *ngIf="transaction().description">
+            @if (transaction().description) {
+            <ng-container>
                 <p class="text-gray-400 text-xs mt-1">
                     {{ transaction().description }}
                 </p>
             </ng-container>
+            }
         </div>
     </div>
 

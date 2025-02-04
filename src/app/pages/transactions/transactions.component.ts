@@ -16,6 +16,7 @@ import { AsyncPipe } from '@angular/common';
 export class TransactionsComponent {
   isModalOpen = false;
   currentTransaction: Partial<Transaction> = {};
+  isEditing = false;
   onOpenModal() {
     this.isModalOpen = !this.isModalOpen
   }
@@ -23,4 +24,10 @@ export class TransactionsComponent {
   transactionService = inject(TransactionService)
 
   transactions$ = this.transactionService.transactions$;
+
+  toggleEditMode(): void {
+    console.log("toggle")
+    this.isEditing = !this.isEditing;
+  }
+
 }

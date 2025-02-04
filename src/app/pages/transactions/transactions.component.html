@@ -1,7 +1,15 @@
-<app-heading-title title="Transactions" />
+<div class="flex justify-between items-center">
+    <app-heading-title title="Transactions" />
+    <button class="px-8 mr-4 rounded-lg cursor-pointer text-white bg-blue-500 hover:bg-blue-600 h-10" (click)="toggleEditMode()">Edit</button>
+</div>
 <div class="container mx-auto px-4">
+    @if ((transactions$ | async)?.length === 0) {
+    <div class="text-center text-gray-500">
+        No transactions yet.
+    </div>
+    }
     @for (transaction of transactions$ | async; track $index) {
-    <app-transaction-card [transaction]="transaction"></app-transaction-card>
+    <app-transaction-card [transaction]="transaction" [isEditing]="isEditing"></app-transaction-card>
     }
 </div>
 

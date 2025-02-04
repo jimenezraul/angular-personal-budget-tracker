@@ -12,6 +12,7 @@ export class TransactionService {
 
     addTransaction(transaction: Transaction) {
         const current = this.transactions.value;
+        transaction.id = this.generateId()
         this.transactions.next([...current, transaction]);
         localStorage.setItem('transactions', JSON.stringify(this.transactions.value));
     }
@@ -45,4 +46,9 @@ export class TransactionService {
 
         return filteredTransactions;
     }
+
+    generateId(): string {
+        return Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+    }
+
 }

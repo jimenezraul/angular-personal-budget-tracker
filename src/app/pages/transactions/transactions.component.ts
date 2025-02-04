@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
 import { Transaction } from '../../models/transaction.model';
 import { TransactionCardComponent } from '../../shared/transaction-card/transaction-card.component';
@@ -26,7 +26,6 @@ export class TransactionsComponent {
   transactions$ = this.transactionService.transactions$;
 
   toggleEditMode(): void {
-    console.log("toggle")
     this.isEditing = !this.isEditing;
   }
 

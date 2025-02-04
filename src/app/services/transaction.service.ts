@@ -24,6 +24,21 @@ export class TransactionService {
         }
     }
 
+    updateTransaction(updatedTransaction: Transaction, id: string) {
+        const currentTransactions = this.transactions.value;
+
+        const updatedTransactions = currentTransactions.map((transaction) =>
+            transaction.id === id
+                ? { ...transaction, ...updatedTransaction }
+                : transaction
+        );
+
+        this.transactions.next([...updatedTransactions]);
+        localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+    }
+
+
+
     deleteTransaction(id: string) {
         const filtered = this.transactions.value.filter((t) => t.id !== id);
         this.transactions.next(filtered);

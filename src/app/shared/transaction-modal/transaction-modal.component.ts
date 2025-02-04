@@ -14,16 +14,20 @@ export class TransactionModalComponent {
   @Input() isOpen: boolean = false;
   @Input() transaction: Partial<Transaction> = {};
   @Output() closeModal = new EventEmitter<void>();
+  @Input() isUpdating = false;
   categories: string[] = Object.values(TransactionCategory);
 
   tService = inject(TransactionService)
 
   onSubmit(form: NgForm) {
-    console.log(form)
     if (form.valid) {
-      this.tService.addTransaction(form.form.value)
+      if (this.isUpdating && this.transaction.id) {
+        this.tService.updateTransaction(form.form.value, this.transaction.id)
+      } else {
+        this.tService.addTransaction(form.form.value)
+      }
       form.reset()
-      this.close(); // Close modal after saving
+      this.close(); 
     }
   }
 

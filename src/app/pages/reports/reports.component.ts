@@ -2,7 +2,6 @@ import { Component, inject, OnInit, ChangeDetectorRef, ViewChildren, QueryList }
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartData } from 'chart.js';
 
 import { HeadingTitleComponent } from '../../shared/heading-title/heading-title.component';
 import { TransactionService } from '../../services/transaction.service';
@@ -11,6 +10,7 @@ import { Summary } from '../../models/summary.model';
 import { TransactionCategory } from '../../enum/categories.enum';
 import { Filters } from '../../models/filter.model';
 import { Transaction } from '../../models/transaction.model';
+import { ChartService } from '../../services/chart.service';
 
 
 @Component({
@@ -22,6 +22,7 @@ import { Transaction } from '../../models/transaction.model';
 export class ReportsComponent implements OnInit {
   // Dependencies
   private transactionService = inject(TransactionService);
+  private chartService = inject(ChartService);
   private summaryService = inject(SummaryService);
   private cdr = inject(ChangeDetectorRef);
 
@@ -37,35 +38,9 @@ export class ReportsComponent implements OnInit {
   // Charts
   @ViewChildren(BaseChartDirective) charts!: QueryList<BaseChartDirective>;
 
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [],
-    datasets: [{ data: [], backgroundColor: [] }],
-  };
-
-  public barChartData: ChartData<'bar', number[], string | string[]> = {
-    labels: ['Financial Summary'],
-    datasets: [
-      {
-        data: [],
-        label: 'Income',
-      },
-      {
-        data: [],
-        label: 'Expenses',
-      },
-      {
-        data: [],
-        label: 'Balance',
-      },
-    ],
-  };
-
-
-  public chartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    aspectRatio: 2,
-    plugins: { legend: { display: true, position: 'top' } },
-  };
+  public pieChartData = this.chartService.pieChartData
+  public barChartData = this.chartService.barChartData
+  public chartOptions = this.chartService.chartOptions
 
   public pieChartType = this.summaryService.pieChartType;
   public barChartType = this.summaryService.barChartType;
@@ -100,42 +75,24 @@ export class ReportsComponent implements OnInit {
 
   // Update Pie Chart Data
   private updatePieChartData(transactions: Transaction[]): void {
-    const { labels, data } = this.summaryService.calculateCategoryTotals(transactions, this.filters);
-    this.pieChartData = {
-      ...this.pieChartData,
-      labels,
-      datasets: [
-        { ...this.pieChartData.datasets[0], data, backgroundColor: this.summaryService.generateColors(labels.length) },
-      ],
-    };
+    this.pieChartData = this.chartService.updatePieChartData(
+      transactions,
+      this.filters,
+      this.pieChartData
+    );
 
     this.refreshChart(0);
   }
 
   // Update Bar Chart Data
   private updateBarChartData(transactions: Transaction[]): void {
-    const [income, expenses, balance] = this.summaryService.calculateIncomeAndExpenses(transactions);
-    const labels = ['Income', 'Expenses', 'Balance'];
-    const colors = ['#42A5F5', '#FF6384', '#66BB6A'];
-    const dataValues = [income, expenses, balance];
-  
-    // Dynamically build datasets using map
-    const datasets = dataValues.map((data, index) => ({
-      data: [data],
-      label: labels[index],
-      backgroundColor: colors[index],
-    }));
-  
-    // Update barChartData
-    this.barChartData = {
-      ...this.barChartData,
-      datasets,
-    };
-  
-    // Refresh the chart
+    this.barChartData = this.chartService.updateBarChartData(
+      transactions,
+      this.barChartData
+    );
+
     this.refreshChart(1);
   }
-  
 
   // Refresh Chart
   private refreshChart(index: number): void {
@@ -150,7 +107,6 @@ export class ReportsComponent implements OnInit {
   }
 
   private validateDateRange(): boolean {
-    const { startDate, endDate } = this.filters;
-    return new Date(startDate) <= new Date(endDate);
+    return this.summaryService.validateDateRange(this.filters.startDate, this.filters.endDate);
   }
 }

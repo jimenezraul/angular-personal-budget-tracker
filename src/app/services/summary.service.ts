@@ -95,4 +95,9 @@ export class SummaryService {
 
         return [income, expenses, balance];
     }
+
+    validateDateRange(startDate: string, endDate: string): boolean {
+        return new Date(startDate) <= new Date(endDate);
+      }
+      
 }
